@@ -3,15 +3,17 @@ import { TodoItemsContext } from "../store/todo-items-store";
 import { useContext } from "react";
 
 const TodoItems = () => {
-  const {todoItems} = useContext(TodoItemsContext);
+  const { todoItems } = useContext(TodoItemsContext);
+
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       {todoItems.map((item) => (
         <TodoItem
-          key={item.name}
+          key={item.id}
+          todoId={item.id}
           todoName={item.name}
           todoDate={item.dueDate}
-        ></TodoItem>
+        />
       ))}
     </div>
   );
