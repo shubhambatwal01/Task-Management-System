@@ -1,5 +1,4 @@
 import { useContext, useRef } from "react";
-import Styles from "./TodoItem.module.css";
 import { IoAdd } from "react-icons/io5";
 import { TodoItemsContext } from "../store/todo-items-store";
 
@@ -20,11 +19,10 @@ function AddTodo() {
   return (
     <div className="container">
       <form
-        className={`row ${Styles["sb-row"]}`}
         onSubmit={handleAddButtonClicked}
       >
         <div className="col-4">
-          <input type="text" placeholder="Enter TODO Here" ref={todoNameElement} />
+          <input type="text" placeholder="Enter task here" ref={todoNameElement} />
         </div>
         <div className="col-4">
           <input type="date" ref={dueDateElement} />
@@ -32,7 +30,6 @@ function AddTodo() {
         <div className="col-2">
           <button
             type="submit"
-            className={`btn btn-success ${Styles["sb-button"]}`}
           >
             <IoAdd />
           </button>

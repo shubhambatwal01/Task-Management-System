@@ -1,6 +1,21 @@
-.todo-container {
-  margin-top: 10px;
-  border: 2px black solid;
-  background-color: aqua;
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
