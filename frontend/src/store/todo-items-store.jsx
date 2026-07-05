@@ -1,5 +1,4 @@
-import { createContext } from "react";
-import { useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 export const TodoItemsContext = createContext({
   todoItems: [],
@@ -8,19 +7,22 @@ export const TodoItemsContext = createContext({
 });
 
 const todoItemsReducer = (currTodoItems, action) => {
-  let newTodoItems = currTodoItems;
   if (action.type === "NEW_ITEM") {
-    newTodoItems = [
+    return [
       ...currTodoItems,
-      { name: action.payload.itemName, dueDate: action.payload.itemDueDate },
+      {
+        id: action.payload.itemId,
+        name: action.payload.itemName,
+        dueDate: action.payload.itemDueDate,
+      },
     ];
-  } else if (action.type === "DELETE_ITEM") {
-    newTodoItems = currTodoItems.filter(
-      (item) => item.name !== action.payload.itemName
-    );
   }
 
-  return newTodoItems;
+  if (action.type === "DELETE_ITEM") {
+    return currTodoItems.filter((item) => item.id !== action.payload.itemId);
+  }
+
+  return currTodoItems;
 };
 
 const TodoItemsContextProvider = ({ children }) => {
@@ -30,6 +32,7 @@ const TodoItemsContextProvider = ({ children }) => {
     const newItemAction = {
       type: "NEW_ITEM",
       payload: {
+        itemId: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
         itemName,
         itemDueDate,
       },
@@ -37,27 +40,21 @@ const TodoItemsContextProvider = ({ children }) => {
     dispatchTodoItems(newItemAction);
   };
 
-  const deleteItem = (todoItemName) => {
-    const DeleteItemAction = {
+  const deleteItem = (todoItemId) => {
+    const deleteItemAction = {
       type: "DELETE_ITEM",
       payload: {
-        itemName: todoItemName,
+        itemId: todoItemId,
       },
     };
-    dispatchTodoItems(DeleteItemAction);
+    dispatchTodoItems(deleteItemAction);
   };
 
   return (
-    <TodoItemsContext.Provider
-        value={{
-        todoItems,
-        addNewItem,
-        deleteItem,
-      }}
-      >
-        {children}
+    <TodoItemsContext.Provider value={{ todoItems, addNewItem, deleteItem }}>
+      {children}
     </TodoItemsContext.Provider>
-  )
+  );
 };
 
 export default TodoItemsContextProvider;
