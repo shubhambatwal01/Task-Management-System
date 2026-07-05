@@ -1,19 +1,10 @@
 import TodoItem from "./TodoItem";
-import { TodoItemsContext } from "../store/todo-items-store";
-import { useContext } from "react";
 
-const TodoItems = () => {
-  const { todoItems } = useContext(TodoItemsContext);
-
+const TodoItems = ({ todoItems, onDeleteClick }) => {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="mt-8 space-y-4">
       {todoItems.map((item) => (
-        <TodoItem
-          key={item.id}
-          todoId={item.id}
-          todoName={item.name}
-          todoDate={item.dueDate}
-        />
+        <TodoItem key={item.id} item={item} onDeleteClick={onDeleteClick} />
       ))}
     </div>
   );

@@ -1,23 +1,18 @@
-import { useContext } from "react";
-import { MdDelete } from "react-icons/md";
-import { TodoItemsContext } from "../store/todo-items-store";
-
-function TodoItem({ todoId, todoName, todoDate }) {
-  const { deleteItem } = useContext(TodoItemsContext);
-
+function TodoItem({ item, onDeleteClick }) {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-      <div className="min-w-0">
-        <p className="truncate font-semibold text-slate-800">{todoName}</p>
-        <p className="text-sm text-slate-500">{todoDate}</p>
+    <div className="flex flex-col gap-4 rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/50 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h3 className="text-lg font-semibold text-slate-900">{item.name}</h3>
+        <p className="mt-1 text-sm text-slate-500">
+          Due: {new Date(item.dueDate).toLocaleDateString()}
+        </p>
       </div>
       <button
         type="button"
-        className="rounded-full p-2 text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
-        onClick={() => deleteItem(todoId)}
-        aria-label={`Delete ${todoName}`}
+        onClick={() => onDeleteClick(item.id)}
+        className="rounded-2xl border border-rose-200 bg-rose-50 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-200"
       >
-        <MdDelete className="text-xl" />
+        Delete
       </button>
     </div>
   );

@@ -1,9 +1,13 @@
 function AppName() {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-2xl bg-sky-50 px-4 py-4 sm:px-5">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">Task Manager</h1>
-      </div>
+    <div className="space-y-3 text-center">
+      <h1 className="text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">
+        Task Manager
+      </h1>
+      <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+        Keep track of your tasks and stay organized with our simple and
+        intuitive task manager.
+      </p>
     </div>
   );
 }
