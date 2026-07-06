@@ -2,25 +2,37 @@ import AppName from "./components/AppName";
 import AddTodo from "./components/AddTodo";
 import TodoItems from "./components/TodoItems";
 import "./App.css";
-import { useState } from "react";
-import { createTaskItem } from "../services/taskItemService";
+import { useEffect, useState } from "react";
+import {
+  addItemToServer,
+  deleteItemFromServer,
+  getItemsFromServer,
+} from "../services/taskItemService";
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
 
+  useEffect(() => {
+    getItemsFromServer().then((initialItems) => {
+      setTodoItems(initialItems);
+    });
+  }, []);
+
   const handleNewItem = async (itemName, itemDueDate) => {
-    const serverItem = await createTaskItem(itemName, itemDueDate);
+    const serverItem = await addItemToServer(itemName, itemDueDate);
     const newTodoItems = [...todoItems, serverItem];
     setTodoItems(newTodoItems);
   };
 
-  const handleDeleteItem = (todoItemId) => {
-    setTodoItems(todoItems.filter((item) => item.id !== todoItemId));
+  const handleDeleteItem = async (id) => {
+    const deletedId = await deleteItemFromServer(id);
+    const newTaskItems = todoItems.filter((item) => item.id !== deletedId);
+    setTodoItems(newTaskItems);
   };
 
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-4xl rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-2xl shadow-slate-200/70 backdrop-blur-xl sm:p-10">
+      <div className="mx-auto w-full max-w-4xl rounded-2rem border border-slate-200 bg-white/90 p-6 shadow-2xl shadow-slate-200/70 backdrop-blur-xl sm:p-10">
         <AppName />
         <AddTodo onNewItem={handleNewItem} />
 

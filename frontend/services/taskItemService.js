@@ -1,4 +1,4 @@
-export const createTaskItem = async (taskName, date) => {
+export const addItemToServer = async (taskName, date) => {
   try {
     const response = await fetch("http://localhost:1101/api/tasks", {
       method: "POST",
@@ -13,6 +13,30 @@ export const createTaskItem = async (taskName, date) => {
     console.error("Error creating task item:", error);
     throw error;
   }
+};
+
+export const getItemsFromServer = async () => {
+  const response = await fetch("http://localhost:1101/api/tasks");
+  const items = await response.json();
+  return items.map(mapTaskItem);
+};
+
+export const markItemCompletedOnServer = async (id) => {
+  const response = await fetch(
+    `http://localhost:1101/api/tasks/${id}/completed`,
+    {
+      method: "PUT",
+    },
+  );
+  const item = await response.json();
+  return mapTaskItem(item);
+};
+
+export const deleteItemFromServer = async (id) => {
+  await fetch(`http://localhost:1101/api/tasks/${id}`, {
+    method: "DELETE",
+  });
+  return id;
 };
 
 const mapTaskItem = (serverTaskItem) => {
