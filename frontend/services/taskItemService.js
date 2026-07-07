@@ -1,12 +1,15 @@
 export const addItemToServer = async (taskName, date) => {
   try {
-    const response = await fetch("http://localhost:1101/api/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "https://task-management-system-j8da.onrender.com/api/tasks",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ taskName, date }),
       },
-      body: JSON.stringify({ taskName, date }),
-    });
+    );
     const item = await response.json();
     return mapTaskItem(item);
   } catch (error) {
@@ -16,14 +19,16 @@ export const addItemToServer = async (taskName, date) => {
 };
 
 export const getItemsFromServer = async () => {
-  const response = await fetch("http://localhost:1101/api/tasks");
+  const response = await fetch(
+    "https://task-management-system-j8da.onrender.com/api/tasks",
+  );
   const items = await response.json();
   return items.map(mapTaskItem);
 };
 
 export const markItemCompletedOnServer = async (id) => {
   const response = await fetch(
-    `http://localhost:1101/api/tasks/${id}/completed`,
+    `https://task-management-system-j8da.onrender.com/api/tasks/${id}/completed`,
     {
       method: "PUT",
     },
@@ -33,9 +38,12 @@ export const markItemCompletedOnServer = async (id) => {
 };
 
 export const deleteItemFromServer = async (id) => {
-  await fetch(`http://localhost:1101/api/tasks/${id}`, {
-    method: "DELETE",
-  });
+  await fetch(
+    `https://task-management-system-j8da.onrender.com/api/tasks/${id}`,
+    {
+      method: "DELETE",
+    },
+  );
   return id;
 };
 
