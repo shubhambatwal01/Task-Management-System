@@ -192,9 +192,7 @@ This project helped in understanding:
 * Dashboard Analytics
 * Dark Mode Support
 
-```
-```
-
+``
 ## 👨‍💻 Developer
 
 ### Shubham Batwal
