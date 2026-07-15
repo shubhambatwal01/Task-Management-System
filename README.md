@@ -165,9 +165,7 @@ DELETE /api/tasks/:id
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3462afb0-ce0f-4616-a715-8a34dbe0223f" />
 
 ```
-
----
-
+```
 ## 🎯 Learning Outcomes
 
 This project helped in understanding:
@@ -194,17 +192,20 @@ This project helped in understanding:
 * Dashboard Analytics
 * Dark Mode Support
 
----
+```
+```
 
-## 👨‍💻 Author
+## 👨‍💻 Developer
 
-### Shubham Suresh Batwal
+### Shubham Batwal
 
 Full Stack Developer | React | Node.js | MongoDB
 
-🔗 GitHub: https://github.com/shubhambatwal01/
+📧 Email: shubhambatwal14@gmail.com
 
-🔗 LinkedIn: https://www.linkedin.com/in/shubhambatwal01/
+🔗 LinkedIn: https://linkedin.com/in/shubhambatwal01/
+
+🔗 GitHub: https://github.com/shubhambatwal01/
 
 🌐 Portfolio: https://shubz-portfolio.vercel.app/
 
