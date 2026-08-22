@@ -5,11 +5,18 @@ const taskItemSchema = new mongoose.Schema(
     taskName: {
       type: String,
       required: true,
+      trim: true,
     },
     date: Date,
     completed: {
       type: Boolean,
       default: false,
+    },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
     },
   },
   { timestamps: true },
