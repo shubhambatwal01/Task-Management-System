@@ -4,6 +4,7 @@ const cors = require("cors");
 const BodyParser = require("body-parser");
 require("dotenv").config();
 const taskItemRouter = require("./routes/taskItemRouter");
+const authRouter = require("./routes/authRouter");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(BodyParser.json());
 
+app.use("/api/auth", authRouter);
 app.use("/api/tasks", taskItemRouter);
 
 app.use((err, req, res, next) => {
@@ -47,6 +49,11 @@ app.use((err, req, res, next) => {
     error: process.env.NODE_ENV === "development" ? err : {},
   });
 });
+
+if (!process.env.JWT_SECRET) {
+  console.error("JWT_SECRET is missing from environment variables");
+  process.exit(1);
+}
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log("MongoDB connected");
