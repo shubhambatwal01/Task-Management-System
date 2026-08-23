@@ -1,6 +1,9 @@
 const express = require("express");
 const taskItemRouter = express.Router();
 const taskItemController = require("../controllers/taskItemController");
+const { protect } = require("../middleware/authMiddleware");
+
+taskItemRouter.use(protect);
 
 taskItemRouter.get("/", taskItemController.getAllTaskItems);
 taskItemRouter.post("/", taskItemController.createTaskItem);
