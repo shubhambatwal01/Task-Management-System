@@ -50,7 +50,7 @@ function AuthForm({ onLogin, onRegister }) {
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-md rounded-4xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-200/70 sm:p-8">
+      <div className="mx-auto max-w-md rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-200/70 sm:p-8">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">
             Task Manager
@@ -95,6 +95,7 @@ function AuthForm({ onLogin, onRegister }) {
             <input
               id="email"
               type="email"
+              autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               className="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
@@ -112,6 +113,7 @@ function AuthForm({ onLogin, onRegister }) {
             <input
               id="password"
               type="password"
+              autoComplete="current-password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               className="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"

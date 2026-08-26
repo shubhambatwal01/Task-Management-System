@@ -1,42 +1,22 @@
-import { API_BASE_URL, authHeaders, readJson } from "./apiConfig";
+import { api } from "./apiConfig";
 
 export const addItemToServer = async (taskName, date) => {
-  const response = await fetch(`${API_BASE_URL}/api/tasks`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...authHeaders(),
-    },
-    body: JSON.stringify({ taskName, date }),
-  });
-
-  const item = await readJson(response);
-  return mapTaskItem(item);
+  const response = await api.post("/api/tasks", { taskName, date });
+  return mapTaskItem(response.data);
 };
 
 export const getItemsFromServer = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/tasks`, {
-    headers: authHeaders(),
-  });
-  const items = await readJson(response);
-  return items.map(mapTaskItem);
+  const response = await api.get("/api/tasks");
+  return response.data.map(mapTaskItem);
 };
 
 export const markItemCompletedOnServer = async (id) => {
-  const response = await fetch(`${API_BASE_URL}/api/tasks/${id}/completed`, {
-    method: "PUT",
-    headers: authHeaders(),
-  });
-  const item = await readJson(response);
-  return mapTaskItem(item);
+  const response = await api.put(`/api/tasks/${id}/completed`);
+  return mapTaskItem(response.data);
 };
 
 export const deleteItemFromServer = async (id) => {
-  const response = await fetch(`${API_BASE_URL}/api/tasks/${id}`, {
-    method: "DELETE",
-    headers: authHeaders(),
-  });
-  await readJson(response);
+  await api.delete(`/api/tasks/${id}`);
   return id;
 };
 

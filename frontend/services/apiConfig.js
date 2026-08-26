@@ -1,23 +1,41 @@
-const ApiUrl =
-  "http://localhost:1101" || "https://task-management-system-j8da.onrender.com";
+import axios from "axios";
 
-export const API_BASE_URL = ApiUrl.replace(/\/+$/, "");
+const defaultApiUrl = import.meta.env.DEV
+  ? "http://localhost:1101"
+  : "https://task-management-system-j8da.onrender.com";
 
-export const getToken = () => localStorage.getItem("taskManagerToken");
+export const API_BASE_URL = (
+  import.meta.env.VITE_API_URL || defaultApiUrl
+).replace(/\/+$/, "");
 
-export const authHeaders = () => {
+const TOKEN_KEY = "taskManagerToken";
+
+export const getToken = () => localStorage.getItem(TOKEN_KEY);
+
+export const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+api.interceptors.request.use((config) => {
   const token = getToken();
-  return token ? { Authorization: `Bearer ${token}` } : {};
-};
 
-export const readJson = async (response) => {
-  const data = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    const error = new Error(data.message || "Something went wrong");
-    error.status = response.status;
-    throw error;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
-  return data;
-};
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const normalizedError = new Error(
+      error.response?.data?.message || error.message || "Something went wrong",
+    );
+    normalizedError.status = error.response?.status;
+    return Promise.reject(normalizedError);
+  },
+);

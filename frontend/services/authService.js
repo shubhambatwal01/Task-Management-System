@@ -1,33 +1,29 @@
-import { API_BASE_URL, authHeaders, readJson } from "./apiConfig";
+import { api } from "./apiConfig";
 
 const TOKEN_KEY = "taskManagerToken";
 
 export const registerUser = async ({ name, email, password }) => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, email, password }),
+  const response = await api.post("/api/auth/register", {
+    name,
+    email,
+    password,
   });
 
-  return readJson(response);
+  return response.data;
 };
 
 export const loginUser = async ({ email, password }) => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
+  const response = await api.post("/api/auth/login", {
+    email,
+    password,
   });
 
-  return readJson(response);
+  return response.data;
 };
 
 export const getCurrentUser = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
-    headers: authHeaders(),
-  });
-
-  return readJson(response);
+  const response = await api.get("/api/auth/me");
+  return response.data;
 };
 
 export const saveToken = (token) => localStorage.setItem(TOKEN_KEY, token);
