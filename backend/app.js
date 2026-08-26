@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
-const BodyParser = require("body-parser");
 require("dotenv").config();
 const taskItemRouter = require("./routes/taskItemRouter");
 const authRouter = require("./routes/authRouter");
@@ -28,7 +27,6 @@ app.use(
 app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(BodyParser.json());
 
 app.use("/api/auth", authRouter);
 app.use("/api/tasks", taskItemRouter);
@@ -55,9 +53,15 @@ if (!process.env.JWT_SECRET) {
   process.exit(1);
 }
 
-mongoose.connect(process.env.MONGO_URL).then(() => {
-  console.log("MongoDB connected");
-  app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log("MongoDB connected");
+    app.listen(process.env.PORT || 1101, () => {
+      console.log(`Server is running on port ${process.env.PORT || 1101}`);
+    });
+  })
+  .catch((error) => {
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
   });
-});
