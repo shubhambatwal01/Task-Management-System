@@ -50,7 +50,7 @@ function AuthForm({ onLogin, onRegister }) {
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-md rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-200/70 sm:p-8">
+      <div className="mx-auto max-w-md rounded-4xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-200/70 sm:p-8">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">
             Task Manager
