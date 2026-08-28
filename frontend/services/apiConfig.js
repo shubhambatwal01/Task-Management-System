@@ -2,7 +2,7 @@ import axios from "axios";
 
 const defaultApiUrl = import.meta.env.DEV
   ? "http://localhost:1101"
-  : "https://task-management-system-j8da.onrender.com";
+  : "https://task-management-system-37rn.onrender.com";
 
 export const API_BASE_URL = (
   import.meta.env.VITE_API_URL || defaultApiUrl
