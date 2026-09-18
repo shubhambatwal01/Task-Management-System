@@ -1,4 +1,10 @@
-import { CalendarDays, Check, CheckCircle2, Trash2 } from "lucide-react";
+import {
+  CalendarDays,
+  Check,
+  CheckCircle2,
+  CheckCheck,
+  Trash2,
+} from "lucide-react";
 
 function TodoItem({ id, item, onDeleteClick, onCompleteClick }) {
   const isCompleted = Boolean(item.completed);
@@ -80,7 +86,7 @@ function TodoItem({ id, item, onDeleteClick, onCompleteClick }) {
           >
             {isCompleted ? (
               <>
-                <span>Completed</span>
+                <CheckCheck size={18} />
               </>
             ) : (
               <>
