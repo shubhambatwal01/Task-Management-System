@@ -1,296 +1,396 @@
-# Task Management System
+# ✅ Task Management System – MERN Stack Application
 
-A full-stack **Task Management System** built with the **MERN Stack**. The application includes **user authentication**, **user-specific task management**, and secure frontend-backend communication using **Axios** and **JWT authentication**.
+## 📌 Overview
 
-## Features
+**Task Management System** is a full-stack web application designed to help users create, manage, update, and track their daily tasks efficiently.
+
+The application provides a simple and responsive interface where users can organize tasks, monitor completion status, and manage their personal task list.
+
+Built using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)**, the project demonstrates full-stack development, REST API integration, authentication, database management, and responsive frontend design.
+
+---
+
+## ✨ Features
+
+### 👤 User Features
 
 - User Registration
-- User Login
-- JWT-based Authentication
-- Secure Password Hashing
-- User-Specific Tasks
-- Create New Tasks
-- View Logged-In User's Tasks
-- Mark Tasks as Completed
-- Delete Tasks
-- Protected Backend Routes
-- Axios API Integration
-- Automatic JWT Authorization Header
-- Responsive User Interface
+- Secure User Login
+- JWT-Based Authentication
+- User-Specific Task Management
+- Protected Routes
+- Secure Logout
 
-## Tech Stack
+### ✅ Task Management
+
+- Create New Tasks
+- View All Tasks
+- Update Existing Tasks
+- Delete Tasks
+- Mark Tasks as Completed
+- Mark Tasks as Pending
+- Track Task Status
+- Manage Personal Tasks
+
+### 📊 Dashboard
+
+- View Total Tasks
+- View Completed Tasks
+- View Pending Tasks
+- Quick Task Overview
+- Simple and Responsive Dashboard
+
+### 🎨 User Interface
+
+- Responsive React Interface
+- Clean and Modern Layout
+- Mobile-Friendly Design
+- Easy Task Navigation
+- User-Friendly Task Forms
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
+
 - React.js
 - JavaScript
 - Vite
-- Tailwind CSS
 - Axios
+- React Router DOM
+- Tailwind CSS
 
 ### Backend
+
 - Node.js
 - Express.js
-- JWT
-- bcrypt
+- JWT Authentication
+- bcrypt.js
 
 ### Database
+
 - MongoDB
 - Mongoose
 
-## How User-Specific Tasks Work
+### Development Tools
 
-Each task is linked to the authenticated user through the user's MongoDB ObjectId.
+- Git
+- GitHub
+- Visual Studio Code
+- Postman
+- npm
 
-```js
-owner: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "User",
-  required: true,
-}
-```
+---
 
-When a user creates a task, the backend automatically assigns the logged-in user's ID:
+## 📂 Project Structure
 
-```js
-owner: req.user._id
-```
-
-Tasks are fetched only for the authenticated user:
-
-```js
-Task.find({ owner: req.user._id })
-```
-
-This prevents users from viewing, updating, completing, or deleting another user's tasks.
-
-## Authentication Flow
-
-1. User registers or logs in.
-2. The backend verifies the user's credentials.
-3. A JWT token is generated.
-4. The frontend stores the token.
-5. Axios sends the token with protected API requests.
-6. Backend authentication middleware verifies the token.
-7. Task operations are performed only for the authenticated user.
-
-Authorization header:
-
-```http
-Authorization: Bearer <token>
-```
-
-## Axios Integration
-
-The frontend communicates with the backend using Axios.
-
-```js
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:1101",
-});
-
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
-
-export default api;
-```
-
-## API Endpoints
-
-### Authentication
-
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/auth/register` | Register a new user |
-| POST | `/api/auth/login` | Login user |
-| GET | `/api/auth/me` | Get authenticated user |
-
-### Tasks
-
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/tasks` | Get logged-in user's tasks |
-| POST | `/api/tasks` | Create a new task |
-| PUT | `/api/tasks/:id/completed` | Update task completion status |
-| DELETE | `/api/tasks/:id` | Delete a task |
-
-All task routes are protected using JWT authentication.
-
-## Project Structure
-
-```text
+```bash id="px4fu9"
 Task-Management-System/
 │
 ├── frontend/
+│   ├── public/
 │   ├── src/
-│   ├── services/
-│   │   ├── apiConfig.js
-│   │   ├── authService.js
-│   │   └── taskItemService.js
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
 │   ├── package.json
-│   └── .env
+│   └── vite.config.js
 │
 ├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
 │   ├── models/
 │   ├── routes/
-│   ├── middleware/
-│   ├── app.js
-│   ├── package.json
-│   └── .env
+│   ├── server.js
+│   └── package.json
 │
 └── README.md
 ```
 
-> The exact folder structure may vary slightly depending on the project version.
+---
 
-## Getting Started
+## 🚀 Installation
 
-### 1. Clone the Repository
+### Clone Repository
 
-```bash
-git clone <your-repository-url>
+```bash id="h7j2ou"
+git clone https://github.com/shubhambatwal01/Task-Management-System.git
 cd Task-Management-System
 ```
 
-## Backend Setup
+---
 
-```bash
+## ⚙️ Backend Setup
+
+Navigate to the backend folder:
+
+```bash id="04nnxw"
 cd backend
+```
+
+Install dependencies:
+
+```bash id="85o34g"
 npm install
 ```
 
-Create a `.env` file inside the `backend` folder:
+Start the backend server:
 
-```env
-PORT=1101
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-FRONTEND_URL=http://localhost:5173
-```
-
-Start the backend:
-
-```bash
+```bash id="a26y8v"
 npm start
 ```
 
-Backend URL:
+If your project uses Nodemon:
 
-```text
-http://localhost:1101
-```
-
-## Frontend Setup
-
-Open another terminal:
-
-```bash
-cd frontend
-npm install
-```
-
-Create a `.env` file inside the `frontend` folder:
-
-```env
-VITE_API_URL=http://localhost:1101
-```
-
-Start the frontend:
-
-```bash
+```bash id="wwxsxm"
 npm run dev
 ```
 
-Frontend URL:
+---
 
-```text
+## 💻 Frontend Setup
+
+Open another terminal and navigate to the frontend folder:
+
+```bash id="osxezp"
+cd frontend
+```
+
+Install dependencies:
+
+```bash id="qyq7wr"
+npm install
+```
+
+Start the React development server:
+
+```bash id="3agjul"
+npm run dev
+```
+
+The application will usually run at:
+
+```text id="g4nwoq"
 http://localhost:5173
 ```
 
-## Environment Variables
+---
 
-### Backend
+## ⚙️ Environment Variables
 
-| Variable | Description |
-|---|---|
-| `PORT` | Backend server port |
-| `MONGO_URL` | MongoDB connection string |
-| `JWT_SECRET` | Secret key used to sign JWT tokens |
-| `FRONTEND_URL` | Frontend URL used for CORS |
+Create a `.env` file inside the backend folder.
 
-### Frontend
+```env
+PORT=1101
 
-| Variable | Description |
-|---|---|
-| `VITE_API_URL` | Backend API base URL |
+MONGO_URI=your_mongodb_connection_string
 
-## Security
+JWT_SECRET=your_jwt_secret
 
-The application includes:
-
-- Password hashing using bcrypt
-- JWT-based authentication
-- Protected task routes
-- User ownership validation
-- User-specific database queries
-- Authorization headers through Axios
-
-Sensitive values such as MongoDB URLs and JWT secrets should never be committed to GitHub.
-
-Add these to `.gitignore`:
-
-```gitignore
-.env
-node_modules/
-dist/
+CLIENT_URL=http://localhost:5173
 ```
 
-## Example
+Generate a secure JWT secret using:
 
-If User A creates:
-
-```text
-Task 1
-Task 2
-Task 3
+```bash id="msazeg"
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
 
-and User B creates:
+Copy the generated value into:
 
-```text
-Task 4
-Task 5
+```env
+JWT_SECRET=your_generated_secret
 ```
 
-User A can only access Task 1, Task 2, and Task 3. User B can only access Task 4 and Task 5.
+---
 
-The backend enforces task ownership, so manually changing a task ID does not allow one user to access another user's task.
+## 🔌 REST API
 
-## Future Improvements
+The backend provides REST APIs for authentication and task management.
 
-- Task due dates
-- Task priorities
-- Categories
-- Search and filtering
-- User profile management
-- Password reset
-- Email verification
-- Drag-and-drop task organization
-- Dashboard statistics
+### Authentication Routes
 
-## Author
+```text id="pd8t31"
+POST /api/auth/register
+POST /api/auth/login
+```
 
-**Shubham Suresh Batwal**  
-Full-Stack / MERN Stack Developer
+### Task Routes
 
-## License
+```text id="tj99om"
+GET    /api/tasks
+POST   /api/tasks
+PUT    /api/tasks/:id
+DELETE /api/tasks/:id
+```
 
-This project is intended for learning, portfolio, and development purposes.
+> API routes may differ depending on the current implementation of the project.
+
+---
+
+## 🗄️ Database
+
+The application uses **MongoDB** for storing user and task information.
+
+### User Data
+
+User documents may contain:
+
+```text id="qutk3t"
+name
+email
+password
+```
+
+### Task Data
+
+Task documents may contain:
+
+```text id="rf5kv7"
+title
+description
+status
+userId
+createdAt
+updatedAt
+```
+
+Each task can be associated with the currently authenticated user, allowing users to manage only their own tasks.
+
+---
+
+## 🔒 Authentication & Security
+
+- JWT-Based Authentication
+- Password Hashing using bcrypt
+- Protected Backend Routes
+- User-Specific Task Access
+- Secure Authentication Middleware
+- Environment Variable Protection
+- MongoDB User Association
+- Unauthorized Request Protection
+
+---
+
+## 📸 Screenshots
+
+### Login Page
+
+```html id="0qb8bj"
+<img
+  width="1920"
+  height="1080"
+  alt="image"
+  src="https://github.com/user-attachments/assets/ea9a50ec-1cfa-491b-beaf-6f31248dbb97"
+/>
+```
+
+### Dashboard
+
+```html id="ldgitb"
+<img
+  width="1920"
+  height="1080"
+  alt="image"
+  src="https://github.com/user-attachments/assets/4b01a0a0-5b56-4d7c-8242-81de164eda00"
+/>
+```
+
+## 🔄 Task Workflow
+
+The application follows a simple task management workflow:
+
+```text id="aijmtr"
+Register / Login
+      ↓
+Dashboard
+      ↓
+Create Task
+      ↓
+View Tasks
+      ↓
+Update Task
+      ↓
+Mark Completed / Pending
+      ↓
+Delete Task
+```
+
+---
+
+## 📈 Future Enhancements
+
+- Task Priority Levels
+- Task Categories
+- Due Dates
+- Search & Filter Tasks
+- Task Sorting
+- Email Reminders
+- Notifications
+- Dark / Light Theme
+- Drag-and-Drop Task Management
+- Calendar Integration
+- Analytics Dashboard
+- Profile Management
+- Password Reset
+- Google Authentication
+
+---
+
+## 🎯 Learning Outcomes
+
+Through this project, I gained practical experience in:
+
+- Full Stack MERN Development
+- React.js Development
+- Node.js & Express.js
+- MongoDB Database Design
+- Mongoose Models
+- REST API Development
+- CRUD Operations
+- JWT Authentication
+- Password Hashing
+- Protected Routes
+- User-Specific Data Management
+- Axios API Integration
+- React State Management
+- Frontend & Backend Integration
+- Environment Variable Management
+- Error Handling
+- Git & GitHub Workflow
+
+---
+
+## 📂 Repository
+
+🔗 **GitHub Repository:**
+https://github.com/shubhambatwal01/Task-Management-System
+
+---
+
+## 👨‍💻 Developer
+
+### Shubham Batwal
+
+Full Stack Developer | React.js | Node.js | MongoDB
+
+📧 Email: [shubhambatwal14@gmail.com](mailto:shubhambatwal14@gmail.com)
+
+🔗 LinkedIn: https://linkedin.com/in/shubhambatwal01/
+
+🔗 GitHub: https://github.com/shubhambatwal01/
+
+🌐 Portfolio: https://shubz-portfolio.vercel.app/
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+Your support helps me continue learning, building, and sharing more full-stack projects.
