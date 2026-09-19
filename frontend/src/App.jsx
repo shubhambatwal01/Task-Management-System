@@ -17,6 +17,7 @@ import {
   registerUser,
   saveToken,
 } from "../services/authService";
+import { LogOut } from "lucide-react";
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
@@ -146,17 +147,15 @@ function App() {
       <div className="mx-auto w-full max-w-4xl rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-2xl shadow-slate-200/70 backdrop-blur-xl sm:p-10">
         <div className="mb-8 flex flex-col gap-3 rounded-2xl bg-slate-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
-              Signed in as
-            </p>
             <p className="mt-1 font-semibold text-slate-900">{user.name}</p>
             <p className="text-sm text-slate-500">{user.email}</p>
           </div>
           <button
             type="button"
             onClick={handleLogout}
-            className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+            className=" flex justify-baseline items-center gap-2 rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold  transition text-red-700 bg-white hover:bg-slate-100"
           >
+            <LogOut size={16} />
             Logout
           </button>
         </div>
@@ -172,7 +171,9 @@ function App() {
 
         <div className="mt-6 rounded-3xl bg-slate-100/80 p-5 text-center text-slate-600 shadow-inner shadow-slate-200/80 sm:p-6">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-500">
-            {todoItems.length === 0 ? "Start a new habit today" : "Task overview"}
+            {todoItems.length === 0
+              ? "Start a new habit today"
+              : "Task overview"}
           </p>
           <p className="mt-2 text-xl font-semibold text-slate-900">
             {todoItems.length === 0
