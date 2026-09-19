@@ -281,25 +281,21 @@ Each task can be associated with the currently authenticated user, allowing user
 
 ### Login Page
 
-```html id="0qb8bj"
 <img
   width="1920"
   height="1080"
   alt="image"
   src="https://github.com/user-attachments/assets/ea9a50ec-1cfa-491b-beaf-6f31248dbb97"
 />
-```
 
 ### Dashboard
 
-```html id="ldgitb"
 <img
   width="1920"
   height="1080"
   alt="image"
   src="https://github.com/user-attachments/assets/4b01a0a0-5b56-4d7c-8242-81de164eda00"
 />
-```
 
 ## 🔄 Task Workflow
 
